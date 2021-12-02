@@ -11,6 +11,7 @@ public class TicTAcGame {
     static boolean won = false;
     static String line;
     static int turn;
+    static int logic1Counter;
     static int emptySlots=9;
     static int winCount;
 
@@ -101,12 +102,52 @@ public class TicTAcGame {
     //Method for computer to make a move
     public static void computerMove() {
 
-        Random random = new Random();
-        int index = random.nextInt(9) + 1;
-        if (board[index] == ' ') {
-            board[index] = computerPlayer;
-        } else {
-            computerMove();
+        computerLogic();
+
+        if (logic1Counter==0) {
+            Random random = new Random();
+            int index = random.nextInt(9) + 1;
+            if (board[index] == ' ') {
+                board[index] = computerPlayer;
+            } else {
+                computerMove();
+            }
+        }
+    }
+    //Methods of logic hierarchy for computerMove
+    public static void computerLogic(){
+        logic1Counter=0;
+        if (logic1Counter==0) {
+            logic1(1, 2, 3);
+        }if (logic1Counter==0) {
+            logic1(4, 5, 6);
+        }if (logic1Counter==0) {
+            logic1(7, 8, 9);
+        }if (logic1Counter==0) {
+            logic1(1, 4, 7);
+        }if (logic1Counter==0) {
+            logic1(2, 5, 8);
+        }if (logic1Counter==0) {
+            logic1(3, 6, 9);
+        }if (logic1Counter==0) {
+            logic1(1, 5, 9);
+        }if (logic1Counter==0) {
+            logic1(3, 5, 7);
+        }
+    }
+    //Method for logic1 in UC8
+    public static void logic1(int x,int y, int z){
+        if (board[x]==computerPlayer || board[y]==computerPlayer || board[z]==computerPlayer){
+            if (board[x]==board[y] && board[z]==' '){
+                board[z]=computerPlayer;
+                logic1Counter++;
+            }else if (board[x]==board[z] && board[y]==' '){
+                board[y]=computerPlayer;
+                logic1Counter++;
+            }else if (board[y]==board[z] && board[x]==' '){
+                board[x]=computerPlayer;
+                logic1Counter++;
+            }
         }
     }
     //Method for checking if any player has won so far.
