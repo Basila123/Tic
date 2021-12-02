@@ -12,6 +12,7 @@ public class TicTAcGame {
     static String line;
     static int turn;
     static int logic1Counter;
+    static int logic2Counter;
     static int emptySlots=9;
     static int winCount;
 
@@ -104,7 +105,7 @@ public class TicTAcGame {
 
         computerLogic();
 
-        if (logic1Counter==0) {
+        if (logic1Counter==0 && logic2Counter==0) {
             Random random = new Random();
             int index = random.nextInt(9) + 1;
             if (board[index] == ' ') {
@@ -134,6 +135,27 @@ public class TicTAcGame {
         }if (logic1Counter==0) {
             logic1(3, 5, 7);
         }
+
+        if (logic1Counter==0) {
+            logic2Counter = 0;
+            if (logic2Counter == 0) {
+                logic2(1, 2, 3);
+            }if (logic2Counter == 0) {
+                logic2(4, 5, 6);
+            }if (logic2Counter == 0) {
+                logic2(7, 8, 9);
+            }if (logic2Counter == 0) {
+                logic2(1, 4, 7);
+            }if (logic2Counter == 0) {
+                logic2(2, 5, 8);
+            }if (logic2Counter == 0) {
+                logic2(3, 6, 9);
+            }if (logic2Counter == 0) {
+                logic2(1, 5, 9);
+            }if (logic2Counter == 0) {
+                logic2(3, 5, 7);
+            }
+        }
     }
     //Method for logic1 in UC8
     public static void logic1(int x,int y, int z){
@@ -147,6 +169,21 @@ public class TicTAcGame {
             }else if (board[y]==board[z] && board[x]==' '){
                 board[x]=computerPlayer;
                 logic1Counter++;
+            }
+        }
+    }
+    //Method for logic2 in UC9
+    public static void logic2(int x,int y, int z){
+        if (board[x]==player || board[y]==player || board[z]==player){
+            if (board[x]==board[y] && board[z]==' '){
+                board[z]=computerPlayer;
+                logic2Counter++;
+            }else if (board[x]==board[z] && board[y]==' '){
+                board[y]=computerPlayer;
+                logic2Counter++;
+            }else if (board[y]==board[z] && board[x]==' '){
+                board[x]=computerPlayer;
+                logic2Counter++;
             }
         }
     }
